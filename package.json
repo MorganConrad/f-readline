@@ -1,0 +1,30 @@
+{
+  "name": "f-readline",
+  "version": "0.1.0",
+  "description": "thin layer over node's readline to provide functional programming: filter(), forEach(), map(), reduce()",
+  "main": "f-readline.js",
+  "scripts": {
+    "test": "nyc --reporter=lcov tape tests/*.test.js",
+    "coverage": "nyc --reporter=text-lcov report | coveralls"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MorganConrad/f-readline.git"
+  },
+  "keywords": [
+    "readstream",
+    "readline",
+    "functional"
+  ],
+  "devDependencies": {
+    "coveralls": "^3.0",
+    "nyc": "^15.0.0",
+    "tape": "^4.6"
+  },
+  "author": "Morgan Conrad <flyingspaniel@gmail.com> (http://flyingspaniel.com/)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/MorganConrad/f-readline/issues"
+  },
+  "homepage": "https://github.com/MorganConrad/f-readline#readme"
+}
