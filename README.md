@@ -5,29 +5,28 @@
 [![Coverage Status](https://coveralls.io/repos/github/MorganConrad/f-readline/badge.svg)](https://coveralls.io/github/MorganConrad/f-readline)
 
 # f-readline
-A thin layer over [node's readline](https://nodejs.org/api/readline.html) to provide functional programming 
+A thin layer over [node's readline](https://nodejs.org/api/readline.html) to provide functional programming
  - filter(), forEach(), map(), reduce()
  - also provides a convenient getAllLines()
 
-Since readline is clever on memory (?), this may save on memory, depending on your usage and the size of the stream.
 
 ## Basic API
 
 **Note:** Other than the constructor, all methods are **async**.
- 
+
 ### constructor(readable, interfaceOptions)   constructor
  - readable is the stream to be read
- - interfaceOptions will be passed to [readline.createInterface(options)](https://nodejs.org/api/readline.html#readline_readline_createinterface_options)
+ - interfaceOptions (optional, default = {}) will be passed to [readline.createInterface(interfaceOptions)](https://nodejs.org/api/readline.html#readline_readline_createinterface_options)
    - crlfDelay defaults to 999999
    - input is set to the `readable` argument
 
 
 ### async getAllLines()
-Convenience method to just provide an array of all the lines.  Obviously it must all fit in memory!    
+Convenience method to just provide an array of all the lines.  Obviously it must all fit in memory!
 
 ## Functional API
 The "functional" methods below accept a user function (or "predicate") **fn** as their first argument.  This method is usually called with three arguments:
- - the value (the line from the file)
+ - the line
  - the line count (starting at 0)
  - the instance of f-readline.  Generally useless but see notes at end
 
@@ -46,21 +45,25 @@ Reduces using `fn(acc, line, idx++, this)`
 
 ### Notes, Todos, and  Caveats
 
-The construtor stores interfaceOptions in a `.options` field, so they are accessible later.  So, you _could_ pass in your own options, say as 
+#### Since readline is clever on memory (?), this may save on memory
+ - if you are just counting lines or characters
+ - if you are filtering just a small subset of the input
+
+#### What good is the 3rd argument to `fn()`?
+
+ - The interfaceOptions are available in `.interfaceOptions`
+ - The created interface is available in `.rl`
+ - If you want to pass other client specific info to **fn**, just add it to the FReadLine instance, _e.g._
 
 ```js
-let interfaceOptions = {
-  ... any "real" interfaceOptions,
-  mySpecialOptions: {
-    ...
-  }
-}
-
 let frl = new FReadLine(readable, interfaceOptions);
+frl.clientData = { your data here };
 
 // then, during the call to fn(), you could access those
 
 fn(line, index, frl) {
-  do something with frl.options.mySpecialOptions
+  do something with frl.clientData
 }
 ```
+
+#### This module has nothing to do with prompting the user, pausing the input, etc.  Just reading a stream line by line.

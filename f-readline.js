@@ -5,7 +5,7 @@ class FReadLine {
   constructor(readable, interfaceOptions = {}) {
     interfaceOptions.crlfDelay = interfaceOptions.crlfDelay || 999999;
     interfaceOptions.input = readable;
-    this.options = interfaceOptions;  // save in case something is useful later.
+    this.interfaceOptions = interfaceOptions;  // save in case something is useful later.
     this.rl = readline.createInterface(interfaceOptions);
   }
 
@@ -16,11 +16,11 @@ class FReadLine {
     for await (const line of this.rl)
       if (fn(line, idx++, this))
         result.push(line);
-    
+
     return result;
   }
-  
-  
+
+
   async forEach(fn) {
     let idx = 0;
     for await (const line of this.rl)
@@ -45,7 +45,7 @@ class FReadLine {
 
     return acc;
   }
-  
+
   /**
     Convenience, just grab all lines into an array
   */
