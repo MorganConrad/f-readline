@@ -5,9 +5,10 @@
 [![Coverage Status](https://coveralls.io/repos/github/MorganConrad/f-readline/badge.svg)](https://coveralls.io/github/MorganConrad/f-readline)
 
 # f-readline
-A thin layer over [node's readline](https://nodejs.org/api/readline.html) to provide functional programming
- - filter(), forEach(), map(), reduce()
- - also provides a convenient getAllLines()
+
+For a long time, Node had no "easy" way to read a stream line by line.  Until v11.4, when [readline](https://nodejs.org/api/readline.html) added [support for async iteration](https://github.com/nodejs/node/pull/23916).
+
+This module is a thin layer over readline to provide functional programming constructs: `filter(), forEach(), map(), reduce()`.  It also provides a convenient `getAllLines()`.
 
 
 ## Basic API
@@ -26,6 +27,7 @@ Convenience method to just provide an array of all the lines.  Obviously it must
 
 ## Functional API
 The "functional" methods below accept a user function (or "predicate") **fn** as their first argument.  This method is usually called with three arguments:
+
  - the line
  - the line count (starting at 0)
  - the instance of f-readline.  Generally useless but see notes at end
@@ -40,7 +42,7 @@ Calls `fn(line, index, this)` for each line.
 Returns an array obtained by calling `fn(line, index, this)` for each line
 
 ### async reduce(fn, acc)
-Reduces using `fn(acc, line, idx++, this)`
+Reduces using `fn(acc, line, index, this)`
 
 
 ### Notes, Todos, and  Caveats
@@ -50,7 +52,6 @@ Reduces using `fn(acc, line, idx++, this)`
  - if you are filtering just a small subset of the input
 
 #### What good is the 3rd argument to `fn()`?
-
  - The interfaceOptions are available in `.interfaceOptions`
  - The created interface is available in `.rl`
  - If you want to pass other client specific info to **fn**, just add it to the FReadLine instance, _e.g._
@@ -67,3 +68,20 @@ fn(line, index, frl) {
 ```
 
 #### This module has nothing to do with prompting the user, pausing the input, etc.  Just reading a stream line by line.
+
+### Alternatives
+
+All of these do their own twiddly buffering and eol parsing, instead of relying on a "robust" built-in library.
+
+#### [file-readline](https://www.npmjs.com/package/file-readline)
+ - non-functional
+ - only reads a **file**, not any stream
+ 
+#### [n-readlines](https://www.npmjs.com/package/n-readlines)
+ - non-functional
+ - synchronous
+ 
+#### [readlines-ng](https://www.npmjs.com/package/readlines-ng)
+ - non-functional
+ - looks pretty good otherwise and claims to be fast.
+ 
