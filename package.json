@@ -1,6 +1,6 @@
 {
   "name": "f-readline",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "thin layer over node's readline to provide functional programming: filter(), forEach(), map(), reduce()",
   "main": "f-readline.js",
   "scripts": {
@@ -17,9 +17,9 @@
     "functional"
   ],
   "devDependencies": {
-    "coveralls": "^3.0",
-    "nyc": "^15.0.0",
-    "tape": "^4.6"
+    "coveralls": "^3.1.0",
+    "nyc": "^15.1.0",
+    "tape": "^4.13.3"
   },
   "author": "Morgan Conrad <flyingspaniel@gmail.com> (http://flyingspaniel.com/)",
   "license": "MIT",
