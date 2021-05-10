@@ -1,6 +1,6 @@
 {
   "name": "f-readline",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "thin layer over node's readline to provide functional programming: filter(), forEach(), map(), reduce()",
   "main": "f-readline.js",
   "scripts": {
